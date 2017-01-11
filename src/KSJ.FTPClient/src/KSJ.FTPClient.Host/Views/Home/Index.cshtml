@@ -1,0 +1,38 @@
+﻿<html>
+<head>
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.2.0.min.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/signalr/jquery.signalr-2.2.0.min.js"></script>
+    <script src="/signalr/hubs"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+    <script src="/Static/Scripts/app.js"></script>
+    <script src="/Static/Scripts/LocalFiles/Services/LocalService.js"></script>
+    <script src="/Static/Scripts/LocalFiles/Controllers/LocalController.js"></script>
+</head>
+<body ng-app="FTP">
+<h1>Home</h1>
+<p><span>The time is now:&nbsp;</span><span id="time"></span></p>
+<script type="text/javascript">
+    $.ajax({
+        url: '/api/Test',
+        method: 'POST',
+        dataType: 'JSON',
+        success: doStuff
+    });
+    function doStuff(){}
+    function setTime(time) {
+        $("#time").text(time);
+    }
+
+        
+
+    var hub = $.connection.timeHub;
+
+    hub.client.publishTime = setTime;
+    $.connection.hub.start();
+</script>
+<h2>Filesystem</h2>
+<ul ng-controller="LocalController">
+    <li ng-repeat="entry in entries" ng-click="GetFolder(entry.path)">{{entry.name}}</li>
+</ul>
+</body>
+</html>
