@@ -19,17 +19,19 @@ namespace KSJ.FTPClient.Core.LocalFileSystem
 
         public void WatchFolder(string folder)
         {
-            if(_watchers.Any(w => w.Path == folder)) return;
+            if (_watchers.Any(w => w.Path == folder)) return;
             var watcher = _watcherFactory.Create(folder);
             watcher.Changed += Watcher_Changed;
             watcher.Created += Watcher_Changed;
             watcher.Deleted += Watcher_Changed;
             watcher.Renamed += Watcher_Changed;
+
             _watchers.Add(watcher);
         }
 
         private void Watcher_Changed(object sender, FileSystemEventArgs e)
         {
+
             var attr = File.GetAttributes(e.FullPath);
             if ((attr & FileAttributes.Directory) == FileAttributes.Directory)
             {
@@ -41,6 +43,7 @@ namespace KSJ.FTPClient.Core.LocalFileSystem
                 var di = new FileInfo(e.FullPath);
                 _notification.NotifyFolderUpdate(di.Directory.FullName);
             }
+
         }
     }
 }

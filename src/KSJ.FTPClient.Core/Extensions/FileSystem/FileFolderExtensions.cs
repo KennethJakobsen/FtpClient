@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.IO;
 using KSJ.FTPClient.Core.Model;
 using Fl = KSJ.FTPClient.Core.Model.File;
 
@@ -21,7 +17,7 @@ namespace KSJ.FTPClient.Core.Extensions.FileSystem
 
         public static Folder ToFolder(this DirectoryInfo di)
         {
-            return new Folder() { Name = di.Name, Path = di.FullName};
+            return new Folder() { Name = di.Name, Path = di.FullName };
         }
 
         public static Fl ToFile(this FileInfo fi)

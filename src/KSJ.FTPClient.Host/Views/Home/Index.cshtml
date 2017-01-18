@@ -7,32 +7,39 @@
     <script src="/Static/Scripts/app.js"></script>
     <script src="/Static/Scripts/LocalFiles/Services/LocalService.js"></script>
     <script src="/Static/Scripts/LocalFiles/Controllers/LocalController.js"></script>
+    <script src="/Static/Scripts/LocalFiles/Directives/LocalFileDirective.js"></script>
 </head>
 <body ng-app="FTP">
-<h1>Home</h1>
-<p><span>The time is now:&nbsp;</span><span id="time"></span></p>
-<script type="text/javascript">
-    $.ajax({
-        url: '/api/Test',
-        method: 'POST',
-        dataType: 'JSON',
-        success: doStuff
-    });
-    function doStuff(){}
-    function setTime(time) {
-        $("#time").text(time);
-    }
+    <h1>Home</h1>
+    <p><span>The time is now:&nbsp;</span><span id="time"></span></p>
+    <script type="text/javascript">
+        $.ajax({
+            url: '/api/Test',
+            method: 'POST',
+            dataType: 'JSON',
+            success: doStuff
+        });
+        function doStuff() { }
+        function setTime(time) {
+            $("#time").text(time);
+        }
 
-        
 
-    var hub = $.connection.timeHub;
 
-    hub.client.publishTime = setTime;
-    $.connection.hub.start();
-</script>
-<h2>Filesystem</h2>
-<ul ng-controller="LocalController">
-    <li ng-repeat="entry in entries" ng-click="GetFolder(entry.path)">{{entry.name}}</li>
-</ul>
+        var hub = $.connection.timeHub;
+
+        hub.client.publishTime = setTime;
+        $.connection.hub.start();
+    </script>
+    <script type="text/ng-template" id="tree_item_renderer.html">
+        <span ng-click="GetFolder(data)">{{data.name}}</span>
+        <ul>
+            <li ng-repeat="data in data.entries"  ng-include="'tree_item_renderer.html'"></li>
+        </ul>
+    </script>
+    <h2>Filesystem</h2>
+    <ul ng-controller="LocalController">
+        <li ng-repeat="data in entries" ng-include="'tree_item_renderer.html'"></li>
+    </ul>
 </body>
 </html>

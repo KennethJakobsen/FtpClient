@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace KSJ.FTPClient.Core.Model
+﻿namespace KSJ.FTPClient.Core.Model
 {
     public class Folder : IFileSystemEntry
     {
+        public Folder()
+        {
+            IsFile = false;
+        }
         public string Name { get; set; }
         public string Path { get; set; }
+        public bool IsFile { get; private set; }
     }
 }
