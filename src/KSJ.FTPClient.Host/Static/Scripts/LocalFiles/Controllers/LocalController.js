@@ -1,28 +1,64 @@
 ﻿app.controller("LocalController", ["$scope", "LocalSvc", function ($scope, svc) {
-    $scope.entries = new Array();
+    $scope.entryPoint = { path: "", entries: [] };
     $scope.hub = $.connection.localFileSystemHub;
-    
-    
-    $scope.watchedFolders = new Array();
+
 
 
     svc.GetInitialFolder().success(function (response) {
         angular.forEach(response, function (value, key) {
-            $scope.entries.push(value);
+            $scope.entryPoint.entries.push(value);
         });
     });
-    $scope.updateFolder = function (folder) {
+    $scope.updateFolder = function (msg) {
 
-        angular.forEach($scope.watchedFolders,
-               function (value, key) {
-                   if (value.path === folder)
-                       $scope.SetFolderEntries(value);
-               });
+
+        if (msg.eventType === 3) {
+            var fldr = $scope.findEntryRecursive(msg.watchedFolder, $scope.entryPoint, null);
+            if (fldr !== undefined && fldr !== null) {
+                if (!fldr.element.entries)
+                    fldr.element.entries = [];
+                fldr.element.entries.push(msg.changedEntry);
+            }
+        } else {
+            var elm = $scope.findEntryRecursive(msg.originalPath, $scope.entryPoint, null);
+            if (elm !== undefined && elm !== null) {
+                if (msg.eventType === 2)
+                    $scope.removeFromArray(elm.parent.entries, elm.element);
+                else {
+                    elm.element.path = msg.changedEntry.path;
+                    elm.element.size = msg.changedEntry.size;
+                    elm.element.name = msg.changedEntry.name;
+                    elm.element.lastEdited = msg.changedEntry.lastEdited;
+                }
+            }
+        }
+        $scope.$apply();
     };
+    $scope.removeFromArray = function(arr, elm) {
+        var idx = 0;
+        angular.forEach(arr, function (value, key) {
+            if (value.path === elm.path)
+                idx = key;
+        });
+        arr.splice(idx, 1);
+    }
+    $scope.findEntryRecursive = function (path, elm, par) {
+
+        if (elm.path === path) {
+            return { parent: par, element: elm };
+        } else if (elm.entries != null) {
+            var i;
+            var result = null;
+            for (i = 0; result == null && i < elm.entries.length; i++) {
+                result = $scope.findEntryRecursive(path, elm.entries[i], elm);
+            }
+            return result;
+        }
+        return null;
+    }
     $scope.GetFolder = function (entry) {
         if (entry.isFile === true)
             return;
-        $scope.watchedFolders.push(entry);
         $scope.SetFolderEntries(entry);
 
     }

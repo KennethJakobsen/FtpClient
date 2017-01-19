@@ -1,7 +1,9 @@
-﻿namespace KSJ.FTPClient.Core.LocalFileSystem
+﻿using KSJ.FTPClient.Core.Messages;
+
+namespace KSJ.FTPClient.Core.LocalFileSystem
 {
     public interface INotifyLocalFileSystemClient
     {
-        void NotifyFolderUpdate(string path);
+        void NotifyFolderUpdate(FileSystemChangedMessage msg);
     }
 }

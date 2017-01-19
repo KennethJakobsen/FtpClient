@@ -17,12 +17,12 @@ namespace KSJ.FTPClient.Core.Extensions.FileSystem
 
         public static Folder ToFolder(this DirectoryInfo di)
         {
-            return new Folder() { Name = di.Name, Path = di.FullName };
+            return new Folder() { Name = di.Name, Path = di.FullName, LastEdited = di.LastWriteTime};
         }
 
         public static Fl ToFile(this FileInfo fi)
         {
-            return new Fl() { Name = fi.Name, Path = fi.FullName};
+            return new Fl() { Name = fi.Name, Path = fi.FullName, LastEdited = fi.LastWriteTime, Size = fi.Length};
         }
     }
 }

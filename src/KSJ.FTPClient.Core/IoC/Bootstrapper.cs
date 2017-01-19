@@ -18,7 +18,9 @@ namespace KSJ.FTPClient.Core.IoC
                 .Register<IHandleLocalFilesystem, LocalFileSystemRepository>()
                 .Register<ICreateFileSystemWatcher, FileSystemWatcherFactory>()
                 .Register<LocalFileSystemMonitor>(new PerContainerLifetime())
-                .Register<INotifyLocalFileSystemClient, LocalFileSystemChangedNotifier>();
+                .Register<INotifyLocalFileSystemClient, LocalFileSystemChangedNotifier>()
+                .Register<LocalFileSystemChangedMessageFactory>();
+            
             
             
         }

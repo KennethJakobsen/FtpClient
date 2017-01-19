@@ -8,12 +8,14 @@ namespace KSJ.FTPClient.Core.LocalFileSystem
     {
         private readonly ICreateFileSystemWatcher _watcherFactory;
         private readonly INotifyLocalFileSystemClient _notification;
+        private readonly LocalFileSystemChangedMessageFactory _messageFactory;
         private List<FileSystemWatcher> _watchers;
 
-        public LocalFileSystemMonitor(ICreateFileSystemWatcher watcherFactory, INotifyLocalFileSystemClient notification)
+        public LocalFileSystemMonitor(ICreateFileSystemWatcher watcherFactory, INotifyLocalFileSystemClient notification, LocalFileSystemChangedMessageFactory messageFactory)
         {
             _watcherFactory = watcherFactory;
             _notification = notification;
+            _messageFactory = messageFactory;
             _watchers = new List<FileSystemWatcher>();
         }
 
@@ -34,10 +36,11 @@ namespace KSJ.FTPClient.Core.LocalFileSystem
             //Prevents bubbling when changing directories
             if (e.ChangeType == WatcherChangeTypes.Changed && Directory.Exists(e.FullPath))
                 return;
+
             var watcher = sender as FileSystemWatcher;
             if (watcher == null) return;
-
-            _notification.NotifyFolderUpdate(watcher.Path);
+            var msg = (e is RenamedEventArgs) ? _messageFactory.Create(watcher.Path, e.FullPath, e.ChangeType, ((RenamedEventArgs)e).OldFullPath) : _messageFactory.Create(watcher.Path, e.FullPath, e.ChangeType);
+            _notification.NotifyFolderUpdate(msg);
 
 
         }
