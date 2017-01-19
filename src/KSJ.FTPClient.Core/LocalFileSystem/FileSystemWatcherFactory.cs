@@ -18,7 +18,8 @@ namespace KSJ.FTPClient.Core.LocalFileSystem
             return new FileSystemWatcher(folder)
             {
                 IncludeSubdirectories = false,
-                EnableRaisingEvents = true
+                EnableRaisingEvents = true,
+                NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.CreationTime | NotifyFilters.FileName | NotifyFilters.DirectoryName
             };
         } 
     }

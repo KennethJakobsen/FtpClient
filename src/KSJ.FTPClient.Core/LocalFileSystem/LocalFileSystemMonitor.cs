@@ -31,18 +31,14 @@ namespace KSJ.FTPClient.Core.LocalFileSystem
 
         private void Watcher_Changed(object sender, FileSystemEventArgs e)
         {
+            //Prevents bubbling when changing directories
+            if (e.ChangeType == WatcherChangeTypes.Changed && Directory.Exists(e.FullPath))
+                return;
+            var watcher = sender as FileSystemWatcher;
+            if (watcher == null) return;
 
-            var attr = File.GetAttributes(e.FullPath);
-            if ((attr & FileAttributes.Directory) == FileAttributes.Directory)
-            {
-                var di = new DirectoryInfo(e.FullPath);
-                _notification.NotifyFolderUpdate(di.Parent.FullName);
-            }
-            else
-            {
-                var di = new FileInfo(e.FullPath);
-                _notification.NotifyFolderUpdate(di.Directory.FullName);
-            }
+            _notification.NotifyFolderUpdate(watcher.Path);
+
 
         }
     }
