@@ -10,3 +10,4 @@ bld/
 [Oo]bj/
 .vs/*
 src/**/bin/**/
+src/**/node_modules/
