@@ -11,3 +11,4 @@ bld/
 .vs/*
 src/**/bin/**/
 src/**/node_modules/
+**/dist/

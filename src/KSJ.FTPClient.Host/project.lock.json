@@ -1421,6 +1421,9 @@
       "Microsoft.NETCore.Windows.ApiSets/1.0.1": {
         "type": "package"
       },
+      "Microsoft.TypeScript.Compiler/2.1.5": {
+        "type": "package"
+      },
       "Microsoft.VisualBasic/10.0.1": {
         "type": "package",
         "dependencies": {
@@ -5094,6 +5097,9 @@
       "Microsoft.NETCore.Windows.ApiSets/1.0.1": {
         "type": "package"
       },
+      "Microsoft.TypeScript.Compiler/2.1.5": {
+        "type": "package"
+      },
       "Microsoft.VisualBasic/10.0.1": {
         "type": "package",
         "dependencies": {
@@ -8751,6 +8757,40 @@
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "runtime.json"
+      ]
+    },
+    "Microsoft.TypeScript.Compiler/2.1.5": {
+      "sha512": "0ea4QwtdOtZbo6dTzcRfiPJrjX4T0irnkFyqTeMgpyqsWFBkyE9atuhlFqERbFe3QIZjGmED+yM2g160TKevaQ==",
+      "type": "package",
+      "path": "Microsoft.TypeScript.Compiler/2.1.5",
+      "files": [
+        "License.htm",
+        "Microsoft.TypeScript.Compiler.2.1.5.nupkg.sha512",
+        "Microsoft.TypeScript.Compiler.nuspec",
+        "tools/chakracore.dll",
+        "tools/lib.d.ts",
+        "tools/lib.dom.d.ts",
+        "tools/lib.dom.iterable.d.ts",
+        "tools/lib.es2015.collection.d.ts",
+        "tools/lib.es2015.core.d.ts",
+        "tools/lib.es2015.d.ts",
+        "tools/lib.es2015.generator.d.ts",
+        "tools/lib.es2015.iterable.d.ts",
+        "tools/lib.es2015.promise.d.ts",
+        "tools/lib.es2015.proxy.d.ts",
+        "tools/lib.es2015.reflect.d.ts",
+        "tools/lib.es2015.symbol.d.ts",
+        "tools/lib.es2015.symbol.wellknown.d.ts",
+        "tools/lib.es2016.array.include.d.ts",
+        "tools/lib.es2016.d.ts",
+        "tools/lib.es2017.d.ts",
+        "tools/lib.es2017.object.d.ts",
+        "tools/lib.es5.d.ts",
+        "tools/lib.es6.d.ts",
+        "tools/lib.scripthost.d.ts",
+        "tools/lib.webworker.d.ts",
+        "tools/tsc.exe",
+        "tools/tsc.js"
       ]
     },
     "Microsoft.VisualBasic/10.0.1": {
@@ -14475,6 +14515,7 @@
       "Microsoft.Extensions.Logging.Console >= 1.1.0",
       "Microsoft.Extensions.Logging.Debug >= 1.1.0",
       "Microsoft.NETCore.App >= 1.1.0",
+      "Microsoft.TypeScript.Compiler >= 2.1.5",
       "Microsoft.VisualStudio.Web.BrowserLink.Loader >= 14.0.0"
     ],
     ".NETCoreApp,Version=v1.0": []

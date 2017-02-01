@@ -1,0 +1,24 @@
+﻿{
+  "filesGlob": [
+    "./types/**/*.d.ts",
+    "./index.ts"
+  ],
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es5",
+    "noImplicitAny": true,
+    "removeComments": false,
+    "outDir": ".",
+    "rootDir": ".",
+    "sourceMap": false,
+    "declaration": true,
+    "experimentalDecorators": true
+  },
+  "exclude": [
+    "node_modules"
+  ],
+  "files": [],
+  "atom": {
+    "rewriteTsconfig": true
+  }
+}

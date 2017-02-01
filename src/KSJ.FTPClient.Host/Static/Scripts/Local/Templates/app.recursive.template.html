@@ -1,0 +1,6 @@
+﻿<ul>
+    <li>
+        <span draggable="true" (click)="select(nodes)"(drag)="select(nodes)">{{nodes.name}}</span>
+        <treenode *ngFor="let folder of nodes.content"  [nodes]="folder" ></treenode>
+    </li>
+</ul>
